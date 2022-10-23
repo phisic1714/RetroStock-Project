@@ -1,11 +1,11 @@
-from cProfile import label
-from cgitb import text
+
 from secrets import choice
 from tkinter import *
 from tkinter import ttk
+
 root =Tk()
 root.title("โปรแกรมขายเกมส์")
-root.geometry( "900x900" )
+root.geometry( "1080x610" )
 
 Label(text="ชนิดเครื่อง",font=20).grid(row=0,column=0)
 choice= StringVar(value="เลือกชนิดเครื่อง")
@@ -24,7 +24,11 @@ def selecttype():
     Label(text="เลือกประเภท"+choice1.get()).grid(row=1,column=1)
 
 
+   
+
+
 btn=Button(text="ค้นหา",command=selecttype)
+#btn=Button(text="HOME",command=home)
 btn.grid(row=0,column=4)
 
 root.mainloop()
