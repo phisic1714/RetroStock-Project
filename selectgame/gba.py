@@ -1,4 +1,3 @@
-# Import the required libraries
 from tkinter import *
 from PIL import ImageTk
 import firebase_admin
@@ -29,7 +28,7 @@ db=firestore.client()
    #db.collection('Game').add({'name':name.get(),'game':game.get(),'image':image.get()})
 def pressed(g):
    db.collection('currentGame').add(g)
-doc=db.collection('Game').where('type','==','nes').get()
+doc=db.collection('Game').where('type','==','gba').get()
 m=0
 n=0
 for docs in doc :
@@ -37,7 +36,7 @@ for docs in doc :
       return pressed(x)
    n=n+1
    m=m+250
-   Button(win,text=docs.to_dict()['name'],command=g).place(x=m,y=70)
+   Button(win,text=docs.to_dict()['name'],command=g).pack(side=LEFT,expand=YES)
    
 
 win.mainloop()

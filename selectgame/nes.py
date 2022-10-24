@@ -1,4 +1,3 @@
-# Import the required libraries
 from tkinter import *
 from PIL import ImageTk
 import firebase_admin
@@ -37,7 +36,7 @@ for docs in doc :
       return pressed(x)
    n=n+1
    m=m+250
-   Button(win,text=docs.to_dict()['name'],command=g).place(x=m,y=70)
+   Button(win,text=docs.to_dict()['name'],command=g).pack(side=LEFT,expand=YES)
    
 
 win.mainloop()
