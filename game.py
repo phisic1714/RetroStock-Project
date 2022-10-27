@@ -1,6 +1,6 @@
 # Import the required libraries
 from tkinter import *
-from PIL import ImageTk
+from PIL import ImageTk,Image
 import firebase_admin
 from firebase_admin import credentials
 from firebase_admin import firestore
@@ -23,7 +23,6 @@ bg =  ImageTk.PhotoImage( file = "image/10804297.png")
 # Show image using label
 label1 = Label( win, image = bg)
 label1.place(x = 0,y = 0)
-#webbrowser.open_new('https://www.retrogames.cc/embed/43388-super-bomberman-5-english-translated.html')
 # Open the Image File
 db=firestore.client()
    #db.collection('Game').add({'name':name.get(),'game':game.get(),'image':image.get()})
