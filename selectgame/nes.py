@@ -1,8 +1,5 @@
-from ast import Lambda
-from distutils.command.config import config
 import subprocess
 from tkinter import *
-import tkinter
 from tkinter import ttk
 from urllib.request import urlopen
 from PIL import ImageTk
@@ -52,13 +49,13 @@ def userlibraly():
    subprocess.call(["python", "user/libraly.py"])
 userlogo =  ImageTk.PhotoImage( file = "image/userlogo.png")
 if userinfo['email'] != 'guest':
-   Button(second_frame,image=userlogo,bg='#158bdc',command=userlibraly).place(x = 960,y = 20)
+   Button(win,image=userlogo,bg='#158bdc',command=userlibraly).place(x = 960,y = 20)
 
 def back():
    win.destroy()
    subprocess.call(["python", "homepage.py"])
 backlogo =  ImageTk.PhotoImage( file = "image/back.png")
-Button(second_frame,image=backlogo,bg='black',command=back).place(x = 40,y = 20)
+Button(win,image=backlogo,bg='black',command=back).place(x = 40,y = 20)
 
 def pressed(g):
    db.collection('currentGame').add(g)
@@ -79,6 +76,11 @@ for docs in doc :
       c=0
       r+=1
    phostolistpos+=1
+
+def about_us():
+   subprocess.call(["python", "about_us.py"])
+about_us_logo =  ImageTk.PhotoImage( file = "image/aboutus.png")
+Button(win,image=about_us_logo,bg='#147444',command=about_us).place(x = 960,y = 530)
 
 
 win.mainloop()

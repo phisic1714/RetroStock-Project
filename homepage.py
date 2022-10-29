@@ -1,5 +1,5 @@
 from tkinter import *
-from PIL import ImageTk, Image
+from PIL import ImageTk
 import subprocess
 from firebase_admin import credentials
 from firebase_admin import firestore
@@ -14,6 +14,7 @@ for users in user :
 
 win = Tk()
 win.geometry('1080x610')
+win.resizable(0, 0)
 win.title('Retro Stock')
 win.iconbitmap(r'image/logo.ico')
 win['bg']='#ccff99'
@@ -66,6 +67,10 @@ def back():
 backlogo =  ImageTk.PhotoImage( file = "image/back.png")
 Button(win,image=backlogo,bg='black',command=back).place(x = 40,y = 20)
 
+def about_us():
+   subprocess.call(["python", "about_us.py"])
+about_us_logo =  ImageTk.PhotoImage( file = "image/aboutus.png")
+Button(win,image=about_us_logo,bg='#147444',command=about_us).place(x = 960,y = 530)
 
 win.mainloop()    
 

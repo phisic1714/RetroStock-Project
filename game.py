@@ -1,10 +1,5 @@
-from ast import Lambda
-from distutils.command.config import config
-from itertools import count
 import subprocess
 from tkinter import *
-import tkinter
-from tkinter import ttk
 from urllib.request import urlopen
 import webbrowser
 from PIL import ImageTk
@@ -92,5 +87,10 @@ if users.to_dict()['email']!='guest':
             Savebutton=Button(win,text='Unsave', bg = "red",height = 2,width = 6,command=unsavepress)
             break
    Savebutton.place(x = 750,y = 350)
-   
+
+def about_us():
+   subprocess.call(["python", "about_us.py"])
+about_us_logo =  ImageTk.PhotoImage( file = "image/aboutus.png")
+Button(win,image=about_us_logo,bg='#147444',command=about_us).place(x = 960,y = 530)
+
 win.mainloop()
