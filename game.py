@@ -1,42 +1,96 @@
-# Import the required libraries
+import subprocess
 from tkinter import *
-from PIL import ImageTk,Image
+from urllib.request import urlopen
+import webbrowser
+from PIL import ImageTk
 import firebase_admin
 from firebase_admin import credentials
 from firebase_admin import firestore
-import webbrowser
-
-
 
 cred = credentials.Certificate("retrostock-project-firebase-adminsdk-upta5-aaead3d509.json")
 firebase_admin.initialize_app(cred)
-   
-# Create an instance of Tkinter Frame
-win = Tk()
+db=firestore.client()
+doc=db.collection('currentGame').get()
+for games in doc :
+   game=games.to_dict()
+user=db.collection('currentUser').get()
+for users in user :
+   userinfo=users.to_dict()
 
-# Set the geometry of Tkinter Frame
+win = Tk()
 win.geometry("1080x610")
 win.resizable(0, 0)
 win.title('Retro Stock')
+win.iconbitmap(r'image/logo.ico')
 win.option_add('*Font', 'times 20')
-bg =  ImageTk.PhotoImage( file = "image/10804297.png")
-# Show image using label
-label1 = Label( win, image = bg)
-label1.place(x = 0,y = 0)
-# Open the Image File
-db=firestore.client()
-   #db.collection('Game').add({'name':name.get(),'game':game.get(),'image':image.get()})
-def pressed(g):
-   db.collection('currentGame').add(g)
-doc=db.collection('Game').where('type','==','nes').get()
-m=0
-n=0
-for docs in doc :
-   def g (x=docs.to_dict()):
-      return pressed(x)
-   n=n+1
-   m=m+250
-   Button(win,text=docs.to_dict()['name'],command=g).place(x=m,y=70)
-   
+
+
+def close():
+   doc=db.collection('currentGame').get()
+   for docs in doc :
+      db.collection('currentGame').document(docs.id).delete()
+   win.destroy()
+
+win.protocol("WM_DELETE_WINDOW", close)
+
+
+bg =  ImageTk.PhotoImage( file = "image/play.jpg")
+Label( win, image = bg).place(x = 0,y = 0)
+
+def userlibraly():
+   win.destroy()
+   subprocess.call(["python", "user/libraly.py"])
+userlogo =  ImageTk.PhotoImage( file = "image/userlogo.png")
+if userinfo['email'] != 'guest':
+   Button(win,image=userlogo,bg='#158bdc',command=userlibraly).place(x = 960,y = 20)
+
+backlogo =  ImageTk.PhotoImage( file = "image/back.png")
+Button(win,image=backlogo,bg='black',command=close).place(x = 40,y = 20)
+
+def playpress():
+   webbrowser.open(games.to_dict()['game'])
+
+def savepress():
+   usersavegame=db.collection('User').get()
+   for usersavegames in usersavegame :
+      if usersavegames.to_dict()['email']==userinfo['email']:
+         db.collection('User').document(usersavegames.id).update({'collection':firestore.ArrayUnion([game['id']])})
+         db.collection('currentUser').document(users.id).update({'collection':firestore.ArrayUnion([game['id']])})
+      close()
+
+def unsavepress():
+   usersavegame=db.collection('User').get()
+   for usersavegames in usersavegame :
+      usersavegamenum=len(usersavegames.to_dict()['collection'])
+      if usersavegames.to_dict()['email']==userinfo['email']  :
+         for x in range(usersavegamenum):
+           if usersavegames.to_dict()['collection'][x]==game['id']:
+             db.collection('User').document(usersavegames.id).update({'collection':firestore.ArrayRemove([game['id']])})
+             db.collection('currentUser').document(users.id).update({'collection':firestore.ArrayRemove([game['id']])})
+             close()
+             break
+
+gamename=game['name']
+gameplatform=game['type']
+raw_data = urlopen(game['image']).read()
+image = ImageTk.PhotoImage(data=raw_data)
+Label(win,image=image, bg = "red").place(x = 100,y = 150)
+Label(win,text=f'Name: {gamename}',font=("Arial", 25)).place(x = 550,y = 150)
+Label(win,text=f'Platform: {gameplatform}',font=("Arial", 25)).place(x = 550,y = 250)
+Button(win,text='Play', bg = "light blue",height = 2,width = 6,command=playpress).place(x = 550,y = 350)
+
+if users.to_dict()['email']!='guest':
+   num=len(users.to_dict()['collection'])
+   Savebutton=Button(win,text='Save', bg = "yellow",height = 2,width = 6,command=savepress)
+   for user_mains in range(num) :
+         if users.to_dict()['collection'][user_mains]==game['id'] :
+            Savebutton=Button(win,text='Unsave', bg = "red",height = 2,width = 6,command=unsavepress)
+            break
+   Savebutton.place(x = 750,y = 350)
+
+def about_us():
+   subprocess.call(["python", "about_us.py"])
+about_us_logo =  ImageTk.PhotoImage( file = "image/aboutus.png")
+Button(win,image=about_us_logo,bg='#147444',command=about_us).place(x = 960,y = 530)
 
 win.mainloop()
