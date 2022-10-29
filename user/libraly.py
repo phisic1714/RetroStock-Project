@@ -47,7 +47,7 @@ Label( second_frame, image = bg).place(x = 0,y = 0)
 my_canvas.create_image(0, 0, anchor=NW, image=bg)
 
 name=userinfo['email']
-Label(win,text=f'Wellcome {name}',font=("Arial", 30),bg='light green').place(x = 200,y = 20)
+Label(win,text=f'Wellcome {name}',font=("Arial", 20),bg='light green').place(x = 270,y = 20)
 
 def user_edit():
    win.destroy()

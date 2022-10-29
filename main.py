@@ -23,8 +23,6 @@ auth=firebase.auth()
 db=firestore.client()
 
 User=db.collection('User').get()
-for users in User :
-   userinfo=users.to_dict()
 
 def login ():
    try:
@@ -67,9 +65,16 @@ canvas.create_image(win.winfo_width()/2, 450, anchor=CENTER, image=img1)
 canvas.create_image(win.winfo_width()/2, 50, anchor=CENTER, image=img2)
 
 email =StringVar()
-email.set(userinfo['email'])
 password=StringVar()
-password.set(userinfo['password'])
+if User == None :
+   email.set('')
+   password.set('')
+else:
+   for users in User :
+      userinfo=users.to_dict()
+      email.set(userinfo['email'])
+      password.set(userinfo['password'])
+
 Label(win, text='Email').place(x=50,y=100)
 Label(win, text='Password').place(x=50,y=150)
 Entry(win,textvariable=email,width=20).place(x=200,y=100)
@@ -78,6 +83,5 @@ Button(win,text='Login',command=login,bg='green',fg='white').place(x=140,y=230)
 Button(win,text='Guest',command=guest,bg='yellow').place(x=310,y=230)
 Button(win,text='Register',command=register,bg='blue',fg='white').place(x=213,y=300)
 Button(win,image=img3,command=about_us,bg='#147444',fg='white').place(x=450,y=450)
-
 
 win.mainloop()
