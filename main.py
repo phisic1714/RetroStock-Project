@@ -39,7 +39,6 @@ def login ():
         Label(win, text='Your Email and Password incorect',bg='red',fg='yellow',font=('Times 13')).place(x=140,y=195)
 
 def guest():
-   auth.sign_in_anonymous()
    db.collection('currentUser').add({'email':'guest'})
    win.destroy()
    subprocess.call(["python", "homepage.py"])
@@ -64,14 +63,13 @@ canvas.create_image(win.winfo_width()/2, 50, anchor=CENTER, image=img2)
 
 email =StringVar()
 password=StringVar()
-p=30
-Label(win, text='Email').place(x=50,y=70+p)
-Label(win, text='Password').place(x=50,y=120+p)
-Entry(win,textvariable=email,width=20).place(x=200,y=70+p)
-Entry(win,show="*",textvariable=password,width=20).place(x=200,y=120+p)
-Button(win,text='Login',command=login,bg='green',fg='white').place(x=140,y=200+p)
-Button(win,text='Guest',command=guest,bg='yellow').place(x=310,y=200+p)
-Button(win,text='Register',command=register,bg='blue',fg='white').place(x=213,y=270+p)
+Label(win, text='Email').place(x=50,y=100)
+Label(win, text='Password').place(x=50,y=150)
+Entry(win,textvariable=email,width=20).place(x=200,y=100)
+Entry(win,show="*",textvariable=password,width=20).place(x=200,y=150)
+Button(win,text='Login',command=login,bg='green',fg='white').place(x=140,y=230)
+Button(win,text='Guest',command=guest,bg='yellow').place(x=310,y=230)
+Button(win,text='Register',command=register,bg='blue',fg='white').place(x=213,y=300)
 
 
 win.mainloop()

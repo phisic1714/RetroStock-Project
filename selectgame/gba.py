@@ -22,6 +22,7 @@ win = Tk()
 win.geometry("1080x610")
 win.resizable(0, 0)
 win.title('Retro Stock')
+win.iconbitmap(r'image/logo.ico')
 win.option_add('*Font', 'times 20')
 
 main_frame=Frame(win)
@@ -61,6 +62,7 @@ Button(second_frame,image=backlogo,bg='black',command=back).place(x = 40,y = 20)
 
 def pressed(g):
    db.collection('currentGame').add(g)
+   subprocess.call(["python", "game.py"])
 c=0
 r=0
 phostolistpos=0

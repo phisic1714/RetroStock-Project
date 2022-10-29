@@ -1,5 +1,4 @@
 #import webbrowser
 #webbrowser.open('http://www.ebay.com')
-i=['i','h']
-if i == 'i':
-    print('true')
+i={'i':[1,2,3],'h':[1,2,3]}
+print(i['i'][0])

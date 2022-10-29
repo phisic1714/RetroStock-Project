@@ -22,6 +22,7 @@ win = Tk()
 win.geometry("1080x610")
 win.resizable(0, 0)
 win.title('Retro Stock')
+win.iconbitmap(r'image/logo.ico')
 win.option_add('*Font', 'times 20')
 
 main_frame=Frame(win)
@@ -42,22 +43,24 @@ def close():
 win.protocol("WM_DELETE_WINDOW", close)
 
 
-bg =  ImageTk.PhotoImage( file = "image/gba.jpg")
+bg =  ImageTk.PhotoImage( file = "image/libbg.png")
 Label( second_frame, image = bg).place(x = 0,y = 0)
 my_canvas.create_image(0, 0, anchor=NW, image=bg)
 
 def userlibraly():
    win.destroy()
-   subprocess.call(["python", "user/libraly.py"])
-userlogo =  ImageTk.PhotoImage( file = "image/userlogo.png")
-if userinfo['email'] != 'guest':
-   Button(second_frame,image=userlogo,bg='#158bdc',command=userlibraly).place(x = 960,y = 20)
+   subprocess.call(["python", "user/edit_profile.py"])
+userlogo =  ImageTk.PhotoImage( file = "image/edit_profile.png")
+Button(second_frame,image=userlogo,bg='#158bdc',command=userlibraly).place(x = 960,y = 20)
 
 def back():
    win.destroy()
    subprocess.call(["python", "homepage.py"])
-backlogo =  ImageTk.PhotoImage( file = "image/libbg.png")
+backlogo =  ImageTk.PhotoImage( file = "image/back.png")
 Button(second_frame,image=backlogo,bg='black',command=back).place(x = 40,y = 20)
+
+name=userinfo['email']
+Label(second_frame,text=f'Wellcome {name}',font=("Arial", 30),bg='light green').place(x = 200,y = 20)
 
 def pressed(g):
    db.collection('currentGame').add(g)
