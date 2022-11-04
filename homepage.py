@@ -1,5 +1,5 @@
 from tkinter import *
-from PIL import ImageTk
+from PIL import ImageTk, Image
 import subprocess
 from firebase_admin import credentials
 from firebase_admin import firestore
@@ -38,18 +38,42 @@ def nes():
 def gba():
     win.destroy()
     subprocess.call(["python","selectgame/gba.py"])
+canvas = Canvas(win, width = 1080, height = 610, bg='black')  
+canvas.pack()
 
-label1=Label(win,text="HOME",padx=1080,pady=35,font=90,bg="#ff9966")#.grid(row=0,column=0)
-label1.pack()
+homebg =  ImageTk.PhotoImage( file = "image/homebg.jpg")
+canvas.create_image( win.winfo_width()/2, win.winfo_height()/2, image = homebg, anchor = CENTER)
 
-bt1=Button(win,text="SNES",height=2,width=15,command=snes)#.grid(row=4,column=1)
-bt1.pack(side=LEFT,expand=YES)
 
-bt2=Button(win,text="NES",height=2,width=15,command=nes)#.grid(row=4,column=2)
-bt2.pack(side=LEFT,expand=YES)
+home=ImageTk.PhotoImage(Image.open("image/home.png"))  
+canvas.create_image(win.winfo_width()/2, 50, anchor=CENTER, image=home)
 
-bt3=Button(win,text="GBA",height=2,width=15,command=gba)#.grid(row=4,column=3)
-bt3.pack(side=LEFT,expand=YES)
+bt1=Button(win,text="SNES",height=2,width=15,bg='#9495cb',command=snes)#.grid(row=4,column=1)
+bt1.place(x=150,y=450)
+
+bt2=Button(win,text="NES",height=2,width=15,bg='#921b1b',fg='yellow',command=nes)#.grid(row=4,column=2)
+bt2.place(x=500,y=450)
+
+bt3=Button(win,text="GBA",height=2,width=15,bg='#414a75',fg='white',command=gba)#.grid(row=4,column=3)
+bt3.place(x=850,y=450)
+
+img = Image.open("image/SNES.png")
+img =img.resize((int(img.width*.4),int(img.height*.4)))
+photo = ImageTk.PhotoImage(img)
+label2=Label(image=photo,bg='#ccff99')
+label2.place(x=40,y=150)
+
+img1 = Image.open("image/NESBG.png")
+img1 =img1.resize((int(img1.width*.4),int(img1.height*.4)))
+photo1 = ImageTk.PhotoImage(img1)
+label3=Label(image=photo1,bg='#ccff99')
+label3.place(x=400,y=150)
+
+img2 = Image.open("image/GBC.png")
+img2 =img2.resize((int(img2.width*1),int(img2.height*1)))
+photo2 = ImageTk.PhotoImage(img2)
+label4=Label(image=photo2,bg='#ccff99')
+label4.place(x=800,y=150)
 
 def userlibraly():
    win.destroy()
