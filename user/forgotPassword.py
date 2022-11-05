@@ -19,13 +19,16 @@ def ok():
     try:
         password = user['password']
         mail = user['email']
-        win.destroy()
+        for widgets in win.winfo_children():
+            widgets.destroy()
+        Label(win, text='Complete!! \nPlease Check Your PC Notification',
+              bg='green', fg='yellow').place(x=80, y=80)
         notification.notify(
-            title=f'Hello {mail}', message=f'Your password is {password}', app_icon='image/logo.ico')
+            title=f'Hello {mail}', message=f'Your password is {password}', app_icon='image/logo.ico',timeout=30)
+        win.after(5000,lambda:win.destroy())
     except:
         Label(win, text='Your Email does not Exist',
               bg='red', fg='yellow').place(x=50, y=100)
-
 
 win = Tk()
 win.geometry("530x230")
