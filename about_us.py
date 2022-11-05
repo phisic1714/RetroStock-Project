@@ -1,10 +1,5 @@
-import subprocess
 from tkinter import *
-from tkinter import ttk
-from tkinter.font import BOLD
-from turtle import color
 from PIL import ImageTk, Image
-from numpy import imag, size
 import webbrowser
 
 win = Tk()
