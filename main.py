@@ -35,7 +35,7 @@ def login ():
       subprocess.call(["python", "homepage.py"])
       
    except:
-        Label(win, text='Your Email and Password incorect.',bg='red',fg='yellow',font=('Times 13')).place(x=140,y=195)
+        Label(win, text='Your Email and Password incorect.',bg='red',fg='yellow',font=('Times 13')).place(x=117,y=235)
 
 def guest():
    db.collection('currentUser').add({'email':'guest'})
@@ -47,21 +47,24 @@ def register ():
 
 def about_us():
    subprocess.call(["python", "about_us.py"])
+   
+def forgot():
+   subprocess.call(["python", "user/forgotPassword.py"])
 
 win = Tk()
-win.geometry("530x530")
+win.geometry("530x580")
 win.resizable(0, 0)
 win.title('Retro Stock')
 win.iconbitmap(r'image/logo.ico')
 win.option_add('*Font', 'times 20')
-canvas = Canvas(win, width = 530, height = 530, bg='black')  
+canvas = Canvas(win, width = 530, height = 580, bg='black')  
 canvas.pack()
 bg = PhotoImage(file = "image/bg1.png")
 img1 = ImageTk.PhotoImage(Image.open("image/logo.png")) 
 img2=ImageTk.PhotoImage(Image.open("image/login.png"))  
 img3=ImageTk.PhotoImage(Image.open("image/aboutus.png"))  
 canvas.create_image( win.winfo_width()/2, win.winfo_height()/2, image = bg, anchor = CENTER)
-canvas.create_image(win.winfo_width()/2, 450, anchor=CENTER, image=img1)   
+canvas.create_image(win.winfo_width()/2, 500, anchor=CENTER, image=img1)   
 canvas.create_image(win.winfo_width()/2, 50, anchor=CENTER, image=img2)
 
 email =StringVar()
@@ -79,9 +82,14 @@ Label(win, text='Email').place(x=50,y=100)
 Label(win, text='Password').place(x=50,y=150)
 Entry(win,textvariable=email,width=20).place(x=200,y=100)
 Entry(win,show="*",textvariable=password,width=20).place(x=200,y=150)
-Button(win,text='Login',command=login,bg='green',fg='white').place(x=140,y=230)
-Button(win,text='Guest',command=guest,bg='yellow').place(x=310,y=230)
-Button(win,text='Register',command=register,bg='blue',fg='white').place(x=213,y=300)
-Button(win,image=img3,command=about_us,bg='#147444',fg='white').place(x=450,y=450)
+Button(win,text='Login',command=login,bg='green',fg='white').place(x=130,y=280)
+Button(win,text='Guest',command=guest,bg='yellow').place(x=300,y=280)
+Button(win,text='Register',command=register,bg='blue',fg='white').place(x=203,y=350)
+Button(win,image=img3,command=about_us,bg='#147444',fg='white').place(x=450,y=500)
+forgot=Label(win, text='Forgot Password? Click Me !!',fg='blue',bg='white',font=('Times 13'))
+forgot.place(x=240,y=195)
+forgot.bind('<Button-1>',lambda e :subprocess.call(["python", "user/forgotPassword.py"]))
+forgot.bind('<Enter>',lambda e :forgot.config(bg='black'))
+forgot.bind('<Leave>',lambda e :forgot.config(bg='white'))
 
 win.mainloop()
