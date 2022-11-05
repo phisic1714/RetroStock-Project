@@ -27,6 +27,10 @@ bg =  ImageTk.PhotoImage( file ="image/bgA.jpg")
 Label(win,image = bg).place(x = 0,y = 0)
 canvas.create_image(0, 0, anchor=NW, image=bg)
 
+def close():
+    win.destroy()
+backlogo =  ImageTk.PhotoImage( file = "image/back.png")
+Button(win,image=backlogo,bg='black',command=close).place(x = 40,y = 20)
 
 img1 =Image.open("image/Peera.jpg")
 img1 =img1.resize((int(img1.width*.4),int(img1.height*.4)))

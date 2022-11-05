@@ -18,6 +18,7 @@ win.resizable(0, 0)
 win.title('Retro Stock')
 win.iconbitmap(r'image/logo.ico')
 win['bg']='#ccff99'
+win.option_add('*Font', 'times 15')
 
 def close():
     doc=db.collection('currentUser').get()
@@ -48,14 +49,14 @@ canvas.create_image( win.winfo_width()/2, win.winfo_height()/2, image = homebg, 
 home=ImageTk.PhotoImage(Image.open("image/home.png"))  
 canvas.create_image(win.winfo_width()/2, 50, anchor=CENTER, image=home)
 
-bt1=Button(win,text="SNES",height=2,width=15,bg='#9495cb',command=snes)#.grid(row=4,column=1)
-bt1.place(x=150,y=450)
+bt1=Button(win,text="SNES",height=2,width=15,bg='#9495cb',fg='black',command=snes)#.grid(row=4,column=1)
+bt1.place(x=110,y=450)
 
 bt2=Button(win,text="NES",height=2,width=15,bg='#921b1b',fg='yellow',command=nes)#.grid(row=4,column=2)
-bt2.place(x=500,y=450)
+bt2.place(x=470,y=450)
 
 bt3=Button(win,text="GBA",height=2,width=15,bg='#414a75',fg='white',command=gba)#.grid(row=4,column=3)
-bt3.place(x=850,y=450)
+bt3.place(x=830,y=450)
 
 img = Image.open("image/SNES.png")
 img =img.resize((int(img.width*.4),int(img.height*.4)))

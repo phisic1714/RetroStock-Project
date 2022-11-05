@@ -38,6 +38,9 @@ bg =  ImageTk.PhotoImage( file = "image/play.jpg")
 Label( win, image = bg).place(x = 0,y = 0)
 
 def userlibraly():
+   doc=db.collection('currentGame').get()
+   for docs in doc :
+      db.collection('currentGame').document(docs.id).delete()
    win.destroy()
    subprocess.call(["python", "user/libraly.py"])
 userlogo =  ImageTk.PhotoImage( file = "image/userlogo.png")
