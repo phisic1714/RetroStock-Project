@@ -22,7 +22,7 @@ firebase = pyrebase.initialize_app(firebaseConfig)
 auth=firebase.auth()
 db=firestore.client()
 
-User=db.collection('User').get()
+User=db.collection('User').order_by("email", direction=firestore.Query.ASCENDING).get()
 
 def login ():
    try:

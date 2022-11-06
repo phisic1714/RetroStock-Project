@@ -1,7 +1,6 @@
 import subprocess
 from tkinter import *
 from PIL import ImageTk, Image
-import time
 from plyer import notification
 from firebase_admin import credentials
 from firebase_admin import firestore

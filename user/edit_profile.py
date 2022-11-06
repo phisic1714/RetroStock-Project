@@ -27,9 +27,6 @@ currentUser=db.collection('currentUser').get()
 for users in currentUser :
    userinfo=users.to_dict()
 user=auth.sign_in_with_email_and_password(userinfo['email'],userinfo['password'])
-def close():
-    db.collection('currentUser').document(users.id).delete()
-    win.destroy()
 
 def confirm():
     if userinfo['password'] == current_password.get():
@@ -64,7 +61,8 @@ def del_user():
                     db.collection('User').document(Userstores.id).delete()
         for CurrentUserstores in currentUser :
             db.collection('currentUser').document(CurrentUserstores.id).delete()
-        win.destroy()        
+        win.destroy() 
+        subprocess.call(["python", "main.py"])          
     except:
         Label(win, text='Error Cannot find User and Delete them.',bg='red',fg='yellow',font=('Times 13')).place(x=130,y=290)
 
@@ -81,7 +79,7 @@ win.resizable(0, 0)
 win.title('Retro Stock')
 win.iconbitmap(r'image/logo.ico')
 win.option_add('*Font', 'times 20')
-win.protocol("WM_DELETE_WINDOW", close)
+win.protocol("WM_DELETE_WINDOW", cancle)
 img1 = ImageTk.PhotoImage(Image.open("image/logo.png"))  
 img2=ImageTk.PhotoImage(Image.open("image/edituser.png"))  
 img3=ImageTk.PhotoImage(Image.open("image/aboutus.png"))  
