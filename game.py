@@ -37,15 +37,6 @@ win.protocol("WM_DELETE_WINDOW", close)
 bg =  ImageTk.PhotoImage( file = "image/play.jpg")
 Label( win, image = bg).place(x = 0,y = 0)
 
-def userlibraly():
-   doc=db.collection('currentGame').get()
-   for docs in doc :
-      db.collection('currentGame').document(docs.id).delete()
-   win.destroy()
-   subprocess.call(["python", "user/libraly.py"])
-userlogo =  ImageTk.PhotoImage( file = "image/userlogo.png")
-if userinfo['email'] != 'guest':
-   Button(win,image=userlogo,bg='#158bdc',command=userlibraly).place(x = 960,y = 20)
 
 backlogo =  ImageTk.PhotoImage( file = "image/back.png")
 Button(win,image=backlogo,bg='black',command=close).place(x = 40,y = 20)
