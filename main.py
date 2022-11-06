@@ -48,9 +48,10 @@ def register ():
 def about_us():
    subprocess.call(["python", "about_us.py"])
    
-def forgot():
-   subprocess.call(["python", "user/forgotPassword.py"])
-
+def pressforgot():
+   win.destroy()
+   subprocess.run(["python", "user/forgotPassword.py"])
+   
 win = Tk()
 win.geometry("530x580")
 win.resizable(0, 0)
@@ -88,7 +89,7 @@ Button(win,text='Register',command=register,bg='blue',fg='white').place(x=203,y=
 Button(win,image=img3,command=about_us,bg='#147444',fg='white').place(x=450,y=500)
 forgot=Label(win, text='Forgot Password ? Click Me !!',fg='blue',bg='white',font=('Times 13'))
 forgot.place(x=240,y=195)
-forgot.bind('<Button-1>',lambda e :subprocess.call(["python", "user/forgotPassword.py"]))
+forgot.bind('<Button-1>',lambda e :pressforgot())
 forgot.bind('<Enter>',lambda e :forgot.config(bg='black'))
 forgot.bind('<Leave>',lambda e :forgot.config(bg='white'))
 
